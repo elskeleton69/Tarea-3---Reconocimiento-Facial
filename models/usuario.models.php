@@ -14,6 +14,14 @@ class Usuarios
         return $datos;
         $con->close();
     }
+    public function video(){
+        $con = new ClaseConectar();
+        $con = $con->ProcedimientoConectar();
+        $cadena = "SELECT usuarios.face_id  from usuarios ";
+        $datos = mysqli_query($con, $cadena);
+        return $datos;
+        $con->close();
+    }
     /*TODO: Procedimiento para sacar un registro*/
     public function uno($idUsuarios)
     {

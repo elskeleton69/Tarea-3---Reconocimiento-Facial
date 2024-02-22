@@ -7,7 +7,7 @@ require_once("../models/usuario.models.php");
 $Usuarios = new Usuarios;
 //$Accesos = new Accesos;
 switch ($_GET["op"]) {
-        /*TODO: Procedimiento para listar todos los registros */
+    /*TODO: Procedimiento para listar todos los registros */
     case 'todos':
         $datos = array();
         $datos = $Usuarios->todos();
@@ -16,8 +16,17 @@ switch ($_GET["op"]) {
         }
         echo json_encode($todos);
         break;
-        /*TODO: Procedimiento para sacar un registro */
+    /*TODO: Procedimiento para sacar un registro */
+    case 'video':
+        $datos = array();
+        $datos = $Usuarios->video();
+        while ($row = mysqli_fetch_assoc($datos)) {
+            $todos[] = $row;
+        }
+        echo json_encode($todos);
+        break;
     case 'uno':
+
         $idUsuarios = $_POST["idUsuarios"];
         $datos = array();
         $datos = $Usuarios->uno($idUsuarios);
@@ -31,7 +40,7 @@ switch ($_GET["op"]) {
         $res = mysqli_fetch_assoc($datos);
         echo json_encode($res);
         break;
-        /*TODO: Procedimiento para insertar */
+    /*TODO: Procedimiento para insertar */
     case 'insertar':
         $Nombres = $_POST["Nombres"];
         $Cedula = $_POST["Cedula"];
@@ -42,10 +51,10 @@ switch ($_GET["op"]) {
         $SucursalId = $_POST["SucursalId"];
         $RolId = $_POST["RolId"];
         $datos = array();
-        $datos = $Usuarios->Insertar($Nombres, $Cedula,$Apellidos, $Correo, $Contrasenia, $face_id, $SucursalId, $RolId);
+        $datos = $Usuarios->Insertar($Nombres, $Cedula, $Apellidos, $Correo, $Contrasenia, $face_id, $SucursalId, $RolId);
         echo json_encode($datos);
         break;
-        /*TODO: Procedimiento para actualizar */
+    /*TODO: Procedimiento para actualizar */
     case 'actualizar':
         $idUsuarios = $_POST["idUsuarios"];
         $Nombres = $_POST["Nombres"];
@@ -58,20 +67,20 @@ switch ($_GET["op"]) {
         $datos = $Usuarios->Actualizar($idUsuarios, $Nombres, $Apellidos, $Correo, $Contrasenia, $Roles_idRoles, $Cedula);
         echo json_encode($datos);
         break;
-        /*TODO: Procedimiento para eliminar */
+    /*TODO: Procedimiento para eliminar */
     case 'eliminar':
         $idUsuarios = $_POST["idUsuarios"];
         $datos = array();
         $datos = $Usuarios->Eliminar($idUsuarios);
         echo json_encode($datos);
         break;
-        /*TODO: Procedimiento para insertar */
+    /*TODO: Procedimiento para insertar */
     case 'login':
         $correo = $_POST['correo'];
         $contrasenia = $_POST['contrasenia'];
 
         //TODO: Si las variables estab vacias rgersa con error
-        if (empty($correo) or  empty($contrasenia)) {
+        if (empty($correo) or empty($contrasenia)) {
             header("Location:../login.php?op=2");
             exit();
         }
